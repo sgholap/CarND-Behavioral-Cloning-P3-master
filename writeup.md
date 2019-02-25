@@ -15,19 +15,20 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./model.png "Model Visualization"
-[image2]: ./T1_Org.jpg "Track1 Orginal"
-[image3]: ./T2_Org.jpg "Track2 Orginal"
-[image4]: ./R1_1.jpg "Recovery Image"
-[image5]: ./R1_2.jpg "Recovery Image"
-[image6]: ./R1_3.jpg "Recovery Image"
-[image7]: ./Normal.jpg "Normal Image"
-[image8]: ./flip.jpg "Flipped Image"
-[image9]: ./crop.jpg "Crop Image"
-[image10]: ./Trainset.png "Trainset Image"
-[image11]: ./Validationset.png "Validationset Image"
-[image12]: ./Truncate.png "Truncate Image"
-[image13]: ./Loss.png "Loss Image"
+[image1]: ./writeupimage/model.png "Model Visualization"
+[image2]: ./writeupimage/T1_Org.jpg "Track1 Orginal"
+[image3]: ./writeupimage/T2_Org.jpg "Track2 Orginal"
+[image4]: ./writeupimage/R1_1.jpg "Recovery Image"
+[image5]: ./writeupimage/R1_2.jpg "Recovery Image"
+[image6]: ./writeupimage/R1_3.jpg "Recovery Image"
+[image7]: ./writeupimage/Normal.jpg "Normal Image"
+[image8]: ./writeupimage/Flip.jpg "Flipped Image"
+[image9]: ./writeupimage/crop.jpg "Crop Image"
+[image10]: ./writeupimage/Trainset.png "Trainset Image"
+[image11]: ./writeupimage/Validationset.png "Validationset Image"
+[image12]: ./writeupimage/Truncate.png "Truncate Image"
+[image13]: ./writeupimage/Loss.png "Loss Image"
+
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
@@ -107,20 +108,27 @@ Here is a visualization of the architecture
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
 ![alt text][image2]
+
 ![alt text][image3]
 
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover from off the road.
 
 ![alt text][image4]
+
 ![alt text][image5]
+
 ![alt text][image6]
 
 Then I repeated this process on track two in order to get more data points. It also enable me to handle sharp turns and up and down of hilly area.
+I also trained in reverse direction.
 
 To augment the data set, 
 * I flipped images and angles
+
 ![alt text][image7]
+
 ![alt text][image8]
+
 * I change brightness and contrast
 * I selected left, right and center images.
 
@@ -130,7 +138,9 @@ Total Validation set 3489
 
 I preprocess with
 * Crop image from top to avoid trees etc. and crop dashboard. I resize crop image to 66x200.
+
 ![alt text][image7]
+
 ![alt text][image9]
 
 * Normalize image to -1 to 1
@@ -138,8 +148,11 @@ I preprocess with
 I finally randomly shuffled the data for each epoch. 
 
 * As mention earlier in design approach bullet, I also remove few data with zero steering angle as it was biasing my model to steering angle zero.
+
 ![alt text][image10]
+
 ![alt text][image11]
+
 ![alt text][image12]
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting.
@@ -147,3 +160,20 @@ I used this training data for training the model. The validation set helped dete
 For track 1, my model was overfitting and use to train 10-20 epochs.
 For track 2, it still seems to underfit( Request reviewer to confirm). Here is the plot of loss function with training with both data set.
 ![alt text][image13]
+
+Videos:
+track1.mp4
+<video width="320" height="160" controls>
+  <source src="track1.mp4" type="video/mp4">
+</video>
+
+track2.mp4
+<video width="320" height="160" controls>
+  <source src="track2.mp4" type="video/mp4">
+</video>
+
+Scope of improvement:
+1. More data set from track 2
+2. Training with speed and throttle for track2
+3. Add L2 or batch normalization.
+4. Final model is slow in fitting with epoch.
